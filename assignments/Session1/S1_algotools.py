@@ -51,7 +51,7 @@ def average_above_zero(input_list):
 mylist=[1,2,3,4,-7]
 result= average_above_zero(mylist)
 print(str(result))
-message='The average of positive items of {list_valu}) is {res}'.format(list_value=mylist,res=result)
+message='The average of positive items of {list_value) is {res}'.format(list_value=mylist,res=result)
 print(message)
 """
     
@@ -65,18 +65,129 @@ def max_value(input_list):
     if len(input_list)==0:
         raise ValueError('provided list is empty')
     
-    #init max_value
+    #init max_value and its index
     max_value=input_list[0]
+    max_idx=0
     
-    #find the maximum value in the list
-    for item in input_list:
+       
+    #generic style : iterate over the range of list indexes
+    for idx in range(len(input_list)):
+        if max_value<input_list[idx]:
+            max_value=input_list[idx]
+            max_idx=idx      
+            
+    #modern style : iterate over indexes and members of the list 
+    for idx, item  in enumerate(input_list):
         if max_value<item:
             max_value=item
-    return max_value
- """   
+            max_idx=idx
+            
+    return max_value, max_idx
+"""   
 #testing max_value function:
 mylist=[1,2,3,4,-7]
-result= max_value(mylist)
-print('The maximlum value is: '+str(result))
+mymax_tuple= max_value(mylist)
+mymax=mymax_tuple[0]
+print('The maximlum value of {input_list} is {max_scan}'.format(input_list=mylist, max_scan=mymax))
 """
+
+
+##
+#Reverse a table (my Way)
+def reverse_table(input_list):
+    #Start from maximum index    
+    index_max=len(input_list)
+    for idx, item in enumerate(input_list):
+        if index_max > idx:   
+            index_max-=1
+            input_list[idx]=input_list[index_max]
+            input_list[index_max]=item
+   
+"""
+#Reverse a table : another way
+def reverse_table(input_list):
+    lastidx=len(input_list)
+    for idx in range(len(input_list)/2):
+        lastidx-=1
+        popped=input_list[idx]
+        input_list[idx]=input_list[lastidx]
+        input_list[lastidx]=popped
+    
+"""
+    
+"""    
+#testing reverse_table
+import copy
+mylist=[1,5,4,-7]
+listsave=copy.deepcopy(mylist)
+reverse_table(mylist)
+print(savelist)
+print('The reversed list is {newlist}'.format(newlist=mylist))
+"""
+
+##
+#Bounding Box
+
+import numpy
+import time
+init_time=time.time()
+
+size_rows=10
+size_cols=10
+myMat=numpy.zeros([size_rows,size_cols], dtype=int)
+#set a value in a specific cell
+myMat[1,3]=1    
+
+
+#filling something in the matrix
+"""for  row in range(5,8):
+    for col in range(7,9):
+        myMat[row,col]=1
+
+"""
+
+#filling the matrix: better way
+myMat[2:4,5:9]=1
+myMat[2:4,5:9]=numpy.ones([2,4])
+print(myMat)
+
+#output coordinates matrix
+bbox_coords=numpy.zeros([4,2],dtype=int)
+a=size_rows-1
+c=0
+b=size_cols-1
+d=0
+#check every element of myMat 
+for row in range(0,size_rows-1):
+    for col in range(0,size_cols-1):
+        item = myMat[row,col]
+        #if the element is 1, save its index(i,j)
+        if item==1:
+            if row<a:
+                a=row
+            elif row>c:
+                c=row
+            if col<b:
+                b=col
+            elif col>d:
+                d=col      
+#populate the coordinates matrix with the values
+bbox_coords[0]=[a,b]  
+bbox_coords[1]=[a,d] 
+bbox_coords[2]=[c,b] 
+bbox_coords[3]=[c,d] 
+finish_time=time.time()
+alltime=finish_time-init_time
+print(bbox_coords)     
+print(alltime)  
+            
+    
+    
+    
+        
+
+
+
+
+
 
