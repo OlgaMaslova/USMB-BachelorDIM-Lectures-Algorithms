@@ -125,61 +125,54 @@ print(savelist)
 print('The reversed list is {newlist}'.format(newlist=mylist))
 """
 
-##
-#Bounding Box
 
 import numpy
 import time
-init_time=time.time()
+##
+#Bounding Box
+def roi_bbox(myMat):
 
+    #output coordinates matrix
+    bbox_coords=numpy.zeros([4,2],dtype=int)
+    a=len(myMat)-1
+    c=0
+    b=len(myMat[0])-1
+    d=0
+    #check every element of myMat 
+    for row in range(0,size_rows-1):
+        for col in range(0,size_cols-1):
+            item = myMat[row,col]
+            #if the element is 1, save its index(i,j)
+            if item==1:
+                if row<a:
+                    a=row
+                elif row>c:
+                    c=row
+                if col<b:
+                    b=col
+                elif col>d:
+                    d=col      
+    #populate the coordinates matrix with the values
+    bbox_coords[0]=[a,b]  
+    bbox_coords[1]=[a,d] 
+    bbox_coords[2]=[c,b] 
+    bbox_coords[3]=[c,d] 
+    
+    return bbox_coords 
+
+##testing roi_bbox
 size_rows=10
 size_cols=10
 myMat=numpy.zeros([size_rows,size_cols], dtype=int)
-#set a value in a specific cell
-myMat[1,3]=1    
-
-
-#filling something in the matrix
-"""for  row in range(5,8):
-    for col in range(7,9):
-        myMat[row,col]=1
-
-"""
-
 #filling the matrix: better way
 myMat[2:4,5:9]=1
 myMat[2:4,5:9]=numpy.ones([2,4])
 print(myMat)
-
-#output coordinates matrix
-bbox_coords=numpy.zeros([4,2],dtype=int)
-a=size_rows-1
-c=0
-b=size_cols-1
-d=0
-#check every element of myMat 
-for row in range(0,size_rows-1):
-    for col in range(0,size_cols-1):
-        item = myMat[row,col]
-        #if the element is 1, save its index(i,j)
-        if item==1:
-            if row<a:
-                a=row
-            elif row>c:
-                c=row
-            if col<b:
-                b=col
-            elif col>d:
-                d=col      
-#populate the coordinates matrix with the values
-bbox_coords[0]=[a,b]  
-bbox_coords[1]=[a,d] 
-bbox_coords[2]=[c,b] 
-bbox_coords[3]=[c,d] 
+init_time=time.time()
+result_coordinates=roi_bbox(myMat)
 finish_time=time.time()
 alltime=finish_time-init_time
-print(bbox_coords)     
-print(alltime)  
+print(result_coordinates)
             
     
     
