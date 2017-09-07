@@ -46,11 +46,37 @@ def average_above_zero(input_list):
     average=float(positive_values_sum)/float(positive_values_count)
     print('Positive elements average is '+str(average))
     return float(average)
-    
-"""#testing average_above_zero function:
+"""    
+#testing average_above_zero function:
 mylist=[1,2,3,4,-7]
-result=average_above_zero(mylist)
-message='The average of positive items of {list_value} is {res}'.format(list_value=mylist,res=result)
+result= average_above_zero(mylist)
+print(str(result))
+message='The average of positive items of {list_valu}) is {res}'.format(list_value=mylist,res=result)
 print(message)
+"""
+    
+def max_value(input_list):
+    ##
+    # basic function able to return the max value of a list
+    # @param input_list: th einput list to be scanned
+    # @throws an exception (ValueError) on an empty list
+    
+    #first check if provided list is not empty
+    if len(input_list)==0:
+        raise ValueError('provided list is empty')
+    
+    #init max_value
+    max_value=input_list[0]
+    
+    #find the maximum value in the list
+    for item in input_list:
+        if max_value<item:
+            max_value=item
+    return max_value
+ """   
+#testing max_value function:
+mylist=[1,2,3,4,-7]
+result= max_value(mylist)
+print('The maximlum value is: '+str(result))
 """
 
