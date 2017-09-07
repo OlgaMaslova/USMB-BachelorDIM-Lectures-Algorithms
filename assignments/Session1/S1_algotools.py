@@ -159,7 +159,7 @@ def roi_bbox(myMat):
     bbox_coords[3]=[c,d] 
     
     return bbox_coords 
-
+"""
 ##testing roi_bbox
 size_rows=10
 size_cols=10
@@ -173,11 +173,31 @@ result_coordinates=roi_bbox(myMat)
 finish_time=time.time()
 alltime=finish_time-init_time
 print(result_coordinates)
-            
+ """
+
+
+def random_fill_sparse(myMat):          
+    row_myMat=len(myMat)
+    col_myMat=len(myMat[0])
+    #init iteration and final nmber of cells to fill
+    i = 0
+    K = 6
+    while i<=K:
+        #generate random row and column
+        random_row=numpy.random.randint(0, row_myMat)
+        random_col=numpy.random.randint(0, col_myMat)
+        myMat[random_row,random_col]="X"
+        i+=1
     
     
-    
-        
+##testing random_fill_sparse  
+size_rows=5
+size_cols=5
+myMat=numpy.zeros([size_rows,size_cols], dtype='|S1')
+print(myMat)  
+random_fill_sparse(myMat)
+print(myMat)
+      
 
 
 
