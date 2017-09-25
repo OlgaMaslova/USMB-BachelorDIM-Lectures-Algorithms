@@ -176,27 +176,72 @@ print(result_coordinates)
  """
 
 
-def random_fill_sparse(myMat):          
-    row_myMat=len(myMat)
-    col_myMat=len(myMat[0])
-    #init iteration and final nmber of cells to fill
+def random_fill_sparse(myMat,K):  
+    #the size of the array       
+    size_array=len(myMat)    
+    #init iteration 
     i = 0
-    K = 6
     while i<=K:
         #generate random row and column
-        random_row=numpy.random.randint(0, row_myMat)
-        random_col=numpy.random.randint(0, col_myMat)
+        random_row = alea(size_array)
+        random_col = alea(size_array)
+        #print(random_row,random_col)
+        #fill the cell with coordinates random_row and random_col with "X"
         myMat[random_row,random_col]="X"
         i+=1
+    return myMat
     
+def alea(v):
+    random = numpy.random.randint(0, v)
+    return random
     
-##testing random_fill_sparse  
-size_rows=5
-size_cols=5
-myMat=numpy.zeros([size_rows,size_cols], dtype='|S1')
+"""    
+##testing random_fill_sparse
+N = 3  
+myMat=numpy.zeros([N,N], dtype=str)
+K=2
 print(myMat)  
-random_fill_sparse(myMat)
+random_fill_sparse(myMat, K)
 print(myMat)
+"""
+
+def remove_whitespace (myString):
+    myString = myString.replace(' ','')
+    return myString
+
+"""
+##testing remove_whitespace
+myString = "azr gbn4b ok"
+print(myString)
+myString = remove_whitespace(myString)
+print(myString)
+"""
+
+def shuffle(myList):
+
+    for idx in range(len(myList)) :
+        #generate a random index
+        idx1 = alea(len(myList)-1)
+        #nitialize a helper item
+        helperItem = myList[idx1]
+        #swap two items of the list
+        myList[idx1] = myList[idx]
+        myList[idx] = helperItem        
+    return myList
+
+"""    
+##testing shuffle
+myList = [3,5,6,2,12]
+print (myList)
+shuffle(myList)
+print (myList)
+"""
+        
+
+
+
+
+
       
 
 
