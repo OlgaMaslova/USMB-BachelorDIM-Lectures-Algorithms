@@ -139,8 +139,8 @@ def roi_bbox(myMat):
     b=len(myMat[0])-1
     d=0
     #check every element of myMat 
-    for row in range(0,size_rows-1):
-        for col in range(0,size_cols-1):
+    for row in range(0,a):
+        for col in range(0,b):
             item = myMat[row,col]
             #if the element is 1, save its index(i,j)
             if item==1:
@@ -178,13 +178,13 @@ print(result_coordinates)
 
 def random_fill_sparse(myMat,K):  
     #the size of the array       
-    size_array=len(myMat)    
+    size_array=len(myMat) 
     #init iteration 
     i = 0
     while i<=K:
         #generate random row and column
-        random_row = alea(size_array)
-        random_col = alea(size_array)
+        random_row = alea(size_array-1)
+        random_col = alea(size_array-1)
         #print(random_row,random_col)
         #fill the cell with coordinates random_row and random_col with "X"
         myMat[random_row,random_col]="X"
@@ -192,12 +192,12 @@ def random_fill_sparse(myMat,K):
     return myMat
     
 def alea(v):
-    random = numpy.random.randint(0, v)
+    random = numpy.random.randint(0, v+1)
     return random
     
-"""    
+"""
 ##testing random_fill_sparse
-N = 3  
+N = 6  
 myMat=numpy.zeros([N,N], dtype=str)
 K=2
 print(myMat)  
@@ -222,7 +222,7 @@ def shuffle(myList):
     for idx in range(len(myList)) :
         #generate a random index
         idx1 = alea(len(myList)-1)
-        #nitialize a helper item
+        #initialize a helper item
         helperItem = myList[idx1]
         #swap two items of the list
         myList[idx1] = myList[idx]
