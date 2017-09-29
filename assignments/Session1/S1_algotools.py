@@ -69,13 +69,13 @@ def max_value(input_list):
     max_value=input_list[0]
     max_idx=0
     
-       
+    """  
     #generic style : iterate over the range of list indexes
     for idx in range(len(input_list)):
         if max_value<input_list[idx]:
             max_value=input_list[idx]
             max_idx=idx      
-            
+    """      
     #modern style : iterate over indexes and members of the list 
     for idx, item  in enumerate(input_list):
         if max_value<item:
@@ -216,7 +216,8 @@ print(myString)
 myString = remove_whitespace(myString)
 print(myString)
 """
-
+##
+#Shuffle a list
 def shuffle(myList):
 
     for idx in range(len(myList)) :
@@ -236,13 +237,95 @@ print (myList)
 shuffle(myList)
 print (myList)
 """
-        
+ 
+## 
+#Illustation of selective sorting (question (a))      
+def sort_Selective(myList):
+    #itirations
+    i=0
+    #permutation
+    p=0
+    for idx in range(len(myList)):
+        i+=1
+        min_idx = idx
+        for ind in range(idx+1, len(myList)):
+            i+=1
+            if myList[idx] > myList[ind]:
+                min_idx = ind
+                #swap two items of the list
+                p+=1 
+                myList[idx] , myList[min_idx] = myList[min_idx], myList[idx]
+        #number of iterations does not depends on the content of the initial vector, but on its length (n) precisely (b)
+        #(n²+n)/2 = 28 iterations (where n is the length of the list) needed to sort this list (c)
+        #13 of permutations performed  it depends on the order of initial list (d), 
+        #(n²+n)/2 = 28 comparisons applied (e)
+        #the complexity is O(n²) 
+    return myList, i, p
+""" 
+##testing sort_Selective
+#myList = [10, 15, 7, 1, 3, 3, 9]
+myList = []
+for i in range(100):
+    item = alea(100)
+    myList.append(item)
+shuffle(myList)
+print(myList)
+results_tuple = sort_Selective(myList)
+print('Number of iterations is {i}, number of permutations is {p}'.format(i=results_tuple[1], p=results_tuple[2]))
 
+# (g) for  n = 50, comparisons = 1275, permutaions : varied
+#     for n = 100, comparisons = 5050, permutaions : varied
+#     for n = 500, comparisons = 125250, permutaions : varied
+"""
 
+##
+#Illustration of bubble sorting (a)
+def sort_bubble(myList):
+    #itirations
+    i = 0
+    #permutation
+    p = 0
+    #comparison
+    c = 0
+    is_sorted = False
+    #correction to reduce the length of the list for each outer loop
+    m=0
+    while is_sorted == False:
+        i += 1 
+        is_sorted = True
+        for idx in range(len(myList)-1-m):
+            i += 1
+            c += 1
+            if myList[idx]>myList[idx+1]:
+                is_sorted = False
+                #swap two items of the list
+                p += 1
+                myList[idx], myList[idx+1] = myList[idx+1], myList[idx]
+            #print(myList, idx, i, c, p)
+        m += 1 
+        #number of iterations depends on the content of the initial vector, on its length (n) precisely (b)
+        #28 iterations  needed to sort this list (c)
+        #13 of permutations performed  it depends on the order of initial list (d), 
+        #24 comparisons applied (e)
+        #the complexity is O(n²) 
+    return myList, i, p, c 
 
+"""
+##testing sort_bubble
+#myList = [10, 15, 7, 1, 3, 3, 9]
+myList = []
+for i in range(100):
+    item = alea(1000)
+    myList.append(item)
+shuffle(myList)
+results_tuple = sort_bubble(myList)
+print(results_tuple[3])
+print('Number of iterations is {i}, number of permutations is {p}'.format(i=results_tuple[1], p=results_tuple[2]))
 
-
-      
+# (g) for  n = 50, comparisons varied, permutaions : varied, max is n*(n-1)/2= 1225
+#     for n = 100, comparisons varied, permutaions : varied, max is n*(n-1)/2 = 4950
+#     for n = 500, comparisons varied, permutaions : varied, max is n*(n-1)/2 = 124750
+"""
 
 
 
