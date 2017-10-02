@@ -23,6 +23,7 @@ mybuggylist=[1, 'a', "Hi"]
 b=a+2
 mylist_sum=mylist+mylist2
 """
+import pytest
 
 def average_above_zero(input_list):
 
@@ -40,8 +41,10 @@ def average_above_zero(input_list):
             positive_values_count+=1
         elif item==0:
             print('This value is null:'+str(item))
+            raise ValueError('Zero value is not accepted')
         else:
-            print('This value is negative:'+str(item))     
+            print('This value is negative:'+str(item)) 
+            raise ValueError('Negative value is not accepted')
     #compute the final average
     average=float(positive_values_sum)/float(positive_values_count)
     print('Positive elements average is '+str(average))
@@ -54,6 +57,7 @@ print(str(result))
 message='The average of positive items of {list_value) is {res}'.format(list_value=mylist,res=result)
 print(message)
 """
+
     
 def max_value(input_list):
     ##
@@ -83,9 +87,9 @@ def max_value(input_list):
             max_idx=idx
             
     return max_value, max_idx
-"""   
+"""  
 #testing max_value function:
-mylist=[1,2,3,4,-7]
+mylist=[]
 mymax_tuple= max_value(mylist)
 mymax=mymax_tuple[0]
 print('The maximlum value of {input_list} is {max_scan}'.format(input_list=mylist, max_scan=mymax))
