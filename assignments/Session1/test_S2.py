@@ -15,7 +15,7 @@ def test_average_above_zero_listAllPositive():
     assert algo.average_above_zero(myList) == 2 
     
 def test_average_above_zero_listNegativeAndZero():  
-    myList = [-1, -2, -3]
+    myList = [-1, -2, 0]
     with pytest.raises (ValueError):
         algo.average_above_zero(myList)
 
@@ -52,7 +52,27 @@ def test_roi_bbox_differentShapeBox():
     myMat[2:4,0:4]=numpy.ones([2,4])
     assert numpy.all(algo.roi_bbox(myMat) == [[0,2], [0,4], [3,2], [3,4]])
     
-def test_roi_bbox_emptyBox():
+def test_roi_bbox_noOnesBox():
     myMat=numpy.zeros([6,6], dtype=int)
     with pytest.raises (ValueError):
         algo.roi_bbox(myMat)
+        
+def test_roi_bbox_EmptyBox():
+    myMat = [] 
+    with pytest.raises (ValueError):
+         algo.roi_bbox(myMat)
+         
+def test_random_fill_sparse_MyMatCharWithKPositive():
+    myMat = numpy.zeros([4,4], dtype=str)
+    K = 2
+    count = count_item_matrix(algo.random_fill_sparse(myMat, K))
+    assert count == K
+    
+def count_item_matrix(myMat):
+    item = "X"
+    count = 0
+    for i in range(len(myMat)):
+        for j in range(len(myMat)):
+            if item == myMat[i,j]:
+                count+=1
+    return count
