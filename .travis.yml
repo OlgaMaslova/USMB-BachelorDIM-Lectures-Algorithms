@@ -9,6 +9,6 @@ addons:
     organization: olgamaslova-github
 # command to run tests
 script:
-  - pytest --cov .
+  - pytest --cov assignments/Session1/
   - sonar-scanner  
   - coveralls      
