@@ -148,7 +148,11 @@ def roi_bbox(myMat):
     b=len(myMat[0])
     d=0
     #check if there are ones to counter
-    if item = 1 
+    item = 1
+    if item  in myMat:
+        print("You are ok, continue!")
+    else: 
+        raise ValueError("Fill in you matrix first!")
     
     #check every element of myMat 
     for row in range(0,a):

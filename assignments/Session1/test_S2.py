@@ -54,4 +54,5 @@ def test_roi_bbox_differentShapeBox():
     
 def test_roi_bbox_emptyBox():
     myMat=numpy.zeros([6,6], dtype=int)
-    assert numpy.all(algo.roi_bbox(myMat) == [[0,0], [0,0], [0,0], [0,0]])
+    with pytest.raises (ValueError):
+        algo.roi_bbox(myMat)
