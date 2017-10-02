@@ -99,6 +99,10 @@ print('The maximlum value of {input_list} is {max_scan}'.format(input_list=mylis
 ##
 #Reverse a table (my Way)
 def reverse_table(input_list):
+    #first check if provided list is not empty
+    if len(input_list)==0:
+        raise ValueError('provided list is empty')
+    
     #Start from maximum index    
     index_max=len(input_list)
     for idx, item in enumerate(input_list):
@@ -106,6 +110,7 @@ def reverse_table(input_list):
             index_max-=1
             input_list[idx]=input_list[index_max]
             input_list[index_max]=item
+    return input_list
    
 """
 #Reverse a table : another way
@@ -138,10 +143,13 @@ def roi_bbox(myMat):
 
     #output coordinates matrix
     bbox_coords=numpy.zeros([4,2],dtype=int)
-    a=len(myMat)-1
+    a=len(myMat)
     c=0
-    b=len(myMat[0])-1
+    b=len(myMat[0])
     d=0
+    #check if there are ones to counter
+    if item = 1 
+    
     #check every element of myMat 
     for row in range(0,a):
         for col in range(0,b):
@@ -152,7 +160,7 @@ def roi_bbox(myMat):
                     a=row
                 elif row>c:
                     c=row
-                if col<b:
+                if col<d:
                     b=col
                 elif col>d:
                     d=col      
@@ -163,21 +171,21 @@ def roi_bbox(myMat):
     bbox_coords[3]=[c,d] 
     
     return bbox_coords 
-"""
+
 ##testing roi_bbox
-size_rows=10
-size_cols=10
+size_rows=6
+size_cols=6
 myMat=numpy.zeros([size_rows,size_cols], dtype=int)
 #filling the matrix: better way
-myMat[2:4,5:9]=1
-myMat[2:4,5:9]=numpy.ones([2,4])
+myMat[0:1,4:5]=1
+myMat[2:4,0:4]=numpy.ones([2,4])
 print(myMat)
 init_time=time.time()
 result_coordinates=roi_bbox(myMat)
 finish_time=time.time()
 alltime=finish_time-init_time
 print(result_coordinates)
- """
+
 
 
 def random_fill_sparse(myMat,K):  
