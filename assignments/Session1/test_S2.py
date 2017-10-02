@@ -30,3 +30,12 @@ def test_max_value_listEmpty():
     myList = []
     with pytest.raises (ValueError):
         algo.max_value(myList)
+
+def test_reverse_table_tablePositiveAndZero():
+    myList = [1, 2.5, 7, 19]
+    assert algo.reverse_table(myList) == [19, 7, 2.5, 1]
+    
+def test_reverse_table_tableEmpty():
+    myList = []
+    with pytest.raises (ValueError):
+        algo.reverse_table(myList)
