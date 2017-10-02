@@ -1,3 +1,4 @@
+#coding: utf-8
 ##
 #
 # @author : Olga Maslova, Licence DIM, IUT Annecy le Vieux, FRANCE
@@ -23,7 +24,6 @@ mybuggylist=[1, 'a', "Hi"]
 b=a+2
 mylist_sum=mylist+mylist2
 """
-import pytest
 
 def average_above_zero(input_list):
 
@@ -140,7 +140,9 @@ import time
 ##
 #Bounding Box
 def roi_bbox(myMat):
-
+    #first check if the input matrix is of certain size
+    if len(myMat) == 0:
+        raise ValueError("Your matrix is empty!")
     #output coordinates matrix
     bbox_coords=numpy.zeros([4,2],dtype=int)
     a=len(myMat)
@@ -175,7 +177,7 @@ def roi_bbox(myMat):
     bbox_coords[3]=[c,d] 
     
     return bbox_coords 
-
+"""
 ##testing roi_bbox
 size_rows=6
 size_cols=6
@@ -189,7 +191,7 @@ result_coordinates=roi_bbox(myMat)
 finish_time=time.time()
 alltime=finish_time-init_time
 print(result_coordinates)
-
+"""
 
 
 def random_fill_sparse(myMat,K):  
