@@ -92,7 +92,7 @@ def test_random_fill_sparse_MyMatNotChar():
          algo.random_fill_sparse(myMat, K)
          
 def test_random_fill_sparse_MyMatEmpty():
-    myMat = numpy.zeros([0,0], dtype=int)
+    myMat = numpy.zeros([0,0], dtype=str)
     K=1
     with pytest.raises (ValueError):
          algo.random_fill_sparse(myMat, K)
