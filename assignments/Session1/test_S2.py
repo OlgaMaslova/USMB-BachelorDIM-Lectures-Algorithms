@@ -14,10 +14,15 @@ def test_average_above_zero_listAllPositive():
     myList = [1,2,3]
     assert algo.average_above_zero(myList) == 2 
     
-def test_average_above_zero_listNegativeAndZero():  
-    myList = [-1, -2, 0]
+def test_average_above_zero_listNegative():  
+    myList = [2, -1, -2]
     with pytest.raises (ValueError):
         algo.average_above_zero(myList)
+        
+def test_average_above_zero_listWithZero():  
+    myList = [2, 1, 0]
+    with pytest.raises (ValueError):
+        algo.average_above_zero(myList)   
 
 def test_max_value_listInt():
     myList = [0,-2,15]
@@ -83,6 +88,12 @@ def count_item_matrix(myMat):
 def test_random_fill_sparse_MyMatNotChar():
     myMat = numpy.zeros([4,4], dtype=int)  
     K = 1
+    with pytest.raises (ValueError):
+         algo.random_fill_sparse(myMat, K)
+         
+def test_random_fill_sparse_MyMatEmpty():
+    myMat = numpy.zeros([0,0], dtype=int)
+    K=1
     with pytest.raises (ValueError):
          algo.random_fill_sparse(myMat, K)
 
