@@ -275,6 +275,9 @@ print (myList)
 ## 
 #Illustation of selective sorting (question (a))      
 def sort_Selective(myList):
+    #check if the inputlist is not empty
+    if len(myList) == 0:
+        raise ValueError("Your list is empty!")
     #itirations
     i=0
     #permutation

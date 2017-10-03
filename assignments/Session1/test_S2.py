@@ -109,14 +109,19 @@ def test_shuffle_listIsEmpty():
     myList = []
     with pytest.raises (ValueError):
         algo.shuffle(myList)
-        
-def test_shuffle_sameListLength():
-     myList = [1,2,3,4]
-     assert len(algo.shuffle(myList)) == len(myList)
      
-def test_shuffle_sameMembersList():
-     myList = [1,2,3,4]
+def test_shuffle_sameMembersAndList():
+     myList = ['a', 'J', 'B', 'v']
      newList = algo.shuffle(myList)    
-     assert sorted(newList) == sorted(myList)    
+     assert sorted(newList) == sorted(myList)  
+     
+def test_sort_Selective_normalScenario():
+    myList = [1, 51.5, 25, -19]
+    assert algo.sort_Selective(myList)[0] == sorted(myList)
+    
+def test_sort_Selective_emptyList():
+    myList = []
+    with pytest.raises (ValueError):
+        algo.sort_Selective(myList)
     
     
