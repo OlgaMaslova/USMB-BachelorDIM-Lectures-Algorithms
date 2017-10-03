@@ -102,7 +102,6 @@ def reverse_table(input_list):
     #first check if provided list is not empty
     if len(input_list)==0:
         raise ValueError('provided list is empty')
-    
     #Start from maximum index    
     index_max=len(input_list)
     for idx, item in enumerate(input_list):
@@ -123,14 +122,14 @@ def reverse_table(input_list):
         input_list[lastidx]=popped
     
 """
-    
-"""    
+
+"""   
 #testing reverse_table
 import copy
 mylist=[1,5,4,-7]
 listsave=copy.deepcopy(mylist)
 reverse_table(mylist)
-print(savelist)
+print(listsave)
 print('The reversed list is {newlist}'.format(newlist=mylist))
 """
 
@@ -318,6 +317,9 @@ print('Number of iterations is {i}, number of permutations is {p}'.format(i=resu
 ##
 #Illustration of bubble sorting (a)
 def sort_bubble(myList):
+    #check if the inputlist is not empty
+    if len(myList) == 0:
+        raise ValueError("Your list is empty!")
     #itirations
     i = 0
     #permutation

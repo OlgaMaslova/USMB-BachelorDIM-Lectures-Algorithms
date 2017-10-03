@@ -32,9 +32,10 @@ def test_max_value_listEmpty():
     with pytest.raises (ValueError):
         algo.max_value(myList)
 
-def test_reverse_table_tablePositiveAndZero():
-    myList = [1, 2.5, 7, 19]
-    assert algo.reverse_table(myList) == [19, 7, 2.5, 1]
+def test_reverse_table_tableDifValues():
+    myList = [1, 2.5, -7, 0]
+    reversedList = list(reversed(myList))
+    assert algo.reverse_table(myList) == reversedList
     
 def test_reverse_table_tableEmpty():
     myList = []
@@ -123,5 +124,14 @@ def test_sort_Selective_emptyList():
     myList = []
     with pytest.raises (ValueError):
         algo.sort_Selective(myList)
+        
+def test_sort_bubble_normalScenario():
+    myList = [0, 51.5, 25, -19]
+    assert algo.sort_bubble(myList)[0] == sorted(myList)
+    
+def test_sort_Selective_emptyList():
+    myList = []
+    with pytest.raises (ValueError):
+        algo.sort_bubble(myList)
     
     
