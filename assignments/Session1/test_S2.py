@@ -63,12 +63,14 @@ def test_roi_bbox_EmptyBox():
          algo.roi_bbox(myMat)
          
 def test_random_fill_sparse_MyMatCharWithKPositive():
-    myMat = numpy.zeros([4,4], dtype=str)
+    myMat = numpy.zeros((4,4), dtype=str)
+    print(myMat.dtype)
     K = 2
     count = count_item_matrix(algo.random_fill_sparse(myMat, K))
     assert count == K
     
 def count_item_matrix(myMat):
+    
     item = "X"
     count = 0
     for i in range(len(myMat)):
@@ -76,3 +78,19 @@ def count_item_matrix(myMat):
             if item == myMat[i,j]:
                 count+=1
     return count
+   
+def test_random_fill_sparse_MyMatNotChar():
+    myMat = numpy.zeros([4,4], dtype=int)  
+    K = 1
+    with pytest.raises (ValueError):
+         algo.random_fill_sparse(myMat, K)
+
+def test_random_fill_sparse_MyMatKNegative():
+    myMat = numpy.zeros((4,4), dtype=str)
+    K = -1
+    with pytest.raises (ValueError):
+         algo.random_fill_sparse(myMat, K)    
+    
+def test_remove_whitespace_normal():
+    myString = 'my string'
+    assert algo.remove_whitespace(myString) == 'mystring'

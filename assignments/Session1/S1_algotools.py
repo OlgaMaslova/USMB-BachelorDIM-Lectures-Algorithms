@@ -143,6 +143,7 @@ def roi_bbox(myMat):
     #first check if the input matrix is of certain size
     if len(myMat) == 0:
         raise ValueError("Your matrix is empty!")
+   
     #output coordinates matrix
     bbox_coords=numpy.zeros([4,2],dtype=int)
     a=len(myMat)
@@ -195,11 +196,21 @@ print(result_coordinates)
 
 
 def random_fill_sparse(myMat,K):  
+    #check if the input matrix is of type char
+    if str(myMat.dtype)[:2] != '|S' and str(myMat.dtype)[:2] != '<U':
+        print(myMat.dtype)
+        raise ValueError("Your matrix is not of type char!")
+    #check if the input matrix is of certain size
+    if len(myMat) == 0:
+        raise ValueError("Your matrix is empty!")
+    #check if K is not negative
+    if K < 0:
+        raise ValueError("Cannot fill negative nmber of cells!")
     #the size of the array       
     size_array=len(myMat) 
     #init iteration 
     i = 0
-    while i<=K:
+    while i<K:
         #generate random row and column
         random_row = alea(size_array-1)
         random_col = alea(size_array-1)
