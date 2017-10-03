@@ -140,7 +140,7 @@ def test_sort_bubble_normalScenario():
     myList = [0, 51.5, 25, -19]
     assert algo.sort_bubble(myList)[0] == sorted(myList)
     
-def test_sort_Selective_emptyList():
+def test_sort_bubble_emptyList():
     myList = []
     with pytest.raises (ValueError):
         algo.sort_bubble(myList)
