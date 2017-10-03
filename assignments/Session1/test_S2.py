@@ -63,9 +63,9 @@ def test_roi_bbox_EmptyBox():
          algo.roi_bbox(myMat)
          
 def test_random_fill_sparse_MyMatCharWithKPositive():
-    myMat = numpy.zeros((4,4), dtype=str)
+    myMat = numpy.zeros((100,100), dtype=str)
     print(myMat.dtype)
-    K = 2
+    K = 10
     count = count_item_matrix(algo.random_fill_sparse(myMat, K))
     assert count == K
     
@@ -85,12 +85,38 @@ def test_random_fill_sparse_MyMatNotChar():
     with pytest.raises (ValueError):
          algo.random_fill_sparse(myMat, K)
 
-def test_random_fill_sparse_MyMatKNegative():
+def test_random_fill_sparse_KNegative():
     myMat = numpy.zeros((4,4), dtype=str)
     K = -1
     with pytest.raises (ValueError):
-         algo.random_fill_sparse(myMat, K)    
+         algo.random_fill_sparse(myMat, K) 
+         
+def test_random_fill_sparse_KSuperiorThanSizeMyMat():
+    myMat = numpy.zeros((4,4), dtype=str)
+    K = 5
+    with pytest.raises (ValueError):
+         algo.random_fill_sparse(myMat, K) 
     
 def test_remove_whitespace_normal():
     myString = 'my string'
     assert algo.remove_whitespace(myString) == 'mystring'
+    
+def test_remove_whitespace_onlySpaces():
+    myString = '   '
+    assert algo.remove_whitespace(myString) == ''
+    
+def test_shuffle_listIsEmpty():
+    myList = []
+    with pytest.raises (ValueError):
+        algo.shuffle(myList)
+        
+def test_shuffle_sameListLength():
+     myList = [1,2,3,4]
+     assert len(algo.shuffle(myList)) == len(myList)
+     
+def test_shuffle_sameMembersList():
+     myList = [1,2,3,4]
+     newList = algo.shuffle(myList)    
+     assert sorted(newList) == sorted(myList)    
+    
+    

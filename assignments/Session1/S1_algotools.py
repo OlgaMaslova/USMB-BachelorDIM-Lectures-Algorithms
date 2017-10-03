@@ -203,9 +203,9 @@ def random_fill_sparse(myMat,K):
     #check if the input matrix is of certain size
     if len(myMat) == 0:
         raise ValueError("Your matrix is empty!")
-    #check if K is not negative
-    if K < 0:
-        raise ValueError("Cannot fill negative nmber of cells!")
+    #check if K is not negative or bigger than matrix's size
+    if K < 0 or K > len(myMat) :
+        raise ValueError("Cannot fill negative nmber of cells or superior of the matrix's size!")
     #the size of the array       
     size_array=len(myMat) 
     #init iteration 
@@ -215,9 +215,10 @@ def random_fill_sparse(myMat,K):
         random_row = alea(size_array-1)
         random_col = alea(size_array-1)
         #print(random_row,random_col)
-        #fill the cell with coordinates random_row and random_col with "X"
-        myMat[random_row,random_col]="X"
-        i+=1
+        #fill the cell with coordinates random_row and random_col with "X" if it is empty
+        if myMat[random_row,random_col] != "X":
+            myMat[random_row,random_col]="X"
+            i+=1
     return myMat
     
 def alea(v):
@@ -248,24 +249,28 @@ print(myString)
 ##
 #Shuffle a list
 def shuffle(myList):
-
+    #check if the inputlist is not empty
+    if len(myList) == 0:
+        raise ValueError("Your list is empty!")
+        
     for idx in range(len(myList)) :
-        #generate a random index
-        idx1 = alea(len(myList)-1)
-        #initialize a helper item
-        helperItem = myList[idx1]
-        #swap two items of the list
-        myList[idx1] = myList[idx]
-        myList[idx] = helperItem        
+                #generate a random index
+                idx1 = alea(len(myList)-1)
+                #initialize a helper item
+                helperItem = myList[idx1]
+                #swap two items of the list
+                myList[idx1] = myList[idx]
+                myList[idx] = helperItem 
+                print(myList)
     return myList
 
-"""    
+   
 ##testing shuffle
-myList = [3,5,6,2,12]
+myList = [3,5,6,7]
 print (myList)
 shuffle(myList)
 print (myList)
-"""
+
  
 ## 
 #Illustation of selective sorting (question (a))      
