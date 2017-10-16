@@ -138,20 +138,20 @@ import numpy
 import time
 ##
 #Bounding Box
-def roi_bbox(myMat):
+def roi_bbox(my_Mat):
     #first check if the input matrix is of certain size
-    if len(myMat) == 0:
+    if len(my_Mat) == 0:
         raise ValueError("Your matrix is empty!")
    
     #output coordinates matrix
     bbox_coords=numpy.zeros([4,2],dtype=int)
-    a=len(myMat)
+    a=len(my_Mat)
     c=0
-    b=len(myMat[0])
+    b=len(my_Mat[0])
     d=0
     #check if there are ones to counter
     item = 1
-    if item  in myMat:
+    if item  in my_Mat:
         print("You are ok, continue!")
     else: 
         raise ValueError("Fill in you matrix first!")
@@ -159,7 +159,7 @@ def roi_bbox(myMat):
     #check every element of myMat 
     for row in range(0,a):
         for col in range(0,b):
-            item = myMat[row,col]
+            item = my_Mat[row,col]
             #if the element is 1, save its index(i,j)
             if item==1:
                 if row<a:
