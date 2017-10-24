@@ -6,6 +6,9 @@ Created on Tue Oct 24 09:00:52 2017
 """
 
 import pika, uuid, os
+import numpy as np
+import msgpack 
+import msgpack_numpy as m
 
 # Access the CLODUAMQP_URL environment variable and parse it 
 url = os.environ.get('CLOUDAMQP_URL', 'amqp://dilmpqbx:L7jYevAgl3H8swMcNA1lPd-fX3nqD3I1@lark.rmq.cloudamqp.com/dilmpqbx')
@@ -17,14 +20,20 @@ channel.queue_declare(queue='rpc_queue')  # Declare a queue
 result = channel.queue_declare(exclusive=True) #Client creates an anonymous exclusive callback queue
 callback_queue = result.method.queue
 
-request_msg = 'Hello, how are you?'
+request_msg = np.random.random((20,30))
+encoded_msg=msgpack.packb(request_msg, default=m.encode)
+print("length of uncoded matrix: " , len(str(request_msg)))
+print("length of encoded matrix: ", len(encoded_msg))
+
 corr_id = str(uuid.uuid4())
-channel.basic_publish(exchange='',
-                           routing_key='rpc_queue',
-                           properties=pika.BasicProperties(
-                                 reply_to = callback_queue,
-                                 correlation_id = corr_id,),
-                           body=request_msg)
+
+for i in range(0,2): #let's send many messages to look at server's performance
+    channel.basic_publish(exchange='',
+                               routing_key='rpc_queue',
+                               properties=pika.BasicProperties(
+                                     reply_to = callback_queue,
+                                     correlation_id = corr_id,),
+                               body=encoded_msg)                       
                            
 response=None
 
