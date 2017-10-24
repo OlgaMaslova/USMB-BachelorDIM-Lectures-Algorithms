@@ -6,6 +6,10 @@ Created on Tue Oct 24 09:00:09 2017
 """
 
 import pika, os
+import numpy as np
+import msgpack 
+import msgpack_numpy as m
+
 
 # Access the CLODUAMQP_URL environment variable and parse it 
 url = os.environ.get('CLOUDAMQP_URL', 'amqp://dilmpqbx:L7jYevAgl3H8swMcNA1lPd-fX3nqD3I1@lark.rmq.cloudamqp.com/dilmpqbx')
@@ -17,8 +21,9 @@ channel.queue_declare(queue='rpc_queue')  # Declare a queue
 
 def on_request(ch, method, props, body): #process and reply function
         request_param = str(body)# retrieve input parameters
-        print(request_param) #print the message
-        response = 'Fine, and you?' #process the message
+        decoded_message=msgpack.unpackb(request_param, object_hook=m.decode)#decode the message
+        print(decoded_message) #print the message
+        response = 'Fine, and you? ' #process the message
         ch.basic_publish(exchange='', #reply
                          routing_key=props.reply_to,
                          properties=pika.BasicProperties(
