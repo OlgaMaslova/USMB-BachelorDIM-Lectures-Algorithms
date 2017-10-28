@@ -22,17 +22,17 @@ connection = pika.BlockingConnection(params)  #connect to CloudAMQ
 channel = connection.channel()  # start a channel
 channel.queue_declare(queue='rpc_queue')  # Declare a queue
 
-
 def on_request(ch, method, props, body): #process and reply function
-        request_param = str(body)# retrieve input parameters
-        decoded_message=msgpack.unpackb(request_param, object_hook=m.decode)#decode the message
-        #print(decoded_message) #print the message
+        request_param = str(body) #retrieve input parameters
+        decoded_message = msgpack.unpackb(request_param, object_hook=m.decode) #decode the message
         response = S3_imgproc_tools.invert_colors_opencv(decoded_message) #invert the image
+        print(response.shape)
+        encoded_response = msgpack.packb(response, default=m.encode)
         ch.basic_publish(exchange='', #reply
                          routing_key=props.reply_to,
                          properties=pika.BasicProperties(
-correlation_id = props.correlation_id),
-                         		body=str(response))
+                                correlation_id = props.correlation_id),
+                             	body=encoded_response)
         ch.basic_ack(delivery_tag = method.delivery_tag) #acknowledge
         
         
