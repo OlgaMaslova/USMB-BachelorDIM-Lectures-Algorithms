@@ -62,7 +62,7 @@ print(message)
 def max_value(input_list):
     ##
     # basic function able to return the max value of a list
-    # @param input_list: th einput list to be scanned
+    # @param input_list: the input list to be scanned
     # @throws an exception (ValueError) on an empty list
     
     #first check if provided list is not empty
@@ -98,6 +98,8 @@ print('The maximlum value of {input_list} is {max_scan}'.format(input_list=mylis
 
 ##
 #Reverse a table (my Way)
+# @param input_list: the input list to be reversed
+# @throws an exception (ValueError) on an empty list
 def reverse_table(input_list):
     #first check if provided list is not empty
     if len(input_list)==0:
@@ -136,22 +138,26 @@ print('The reversed list is {newlist}'.format(newlist=mylist))
 
 import numpy
 import time
-##
-#Bounding Box
-def roi_bbox(my_Mat):
+
+##Bounding Box
+# calculates the coordinates of the non-zero area in the 2D matrix
+# @param my_mat: the input 2D matrix to be analyzed
+# @throws an exception (ValueError) on an empty matrix, an exception (ValueError) if the matrix does not contain any ones to calculate
+
+def roi_bbox(my_mat):
     #first check if the input matrix is of certain size
-    if len(my_Mat) == 0:
+    if len(my_mat) == 0:
         raise ValueError("Your matrix is empty!")
    
     #output coordinates matrix
     bbox_coords=numpy.zeros([4,2],dtype=int)
-    a=len(my_Mat)
+    a=len(my_mat)
     c=0
-    b=len(my_Mat[0])
+    b=len(my_mat[0])
     d=0
     #check if there are ones to counter
     item = 1
-    if item  in my_Mat:
+    if item  in my_mat:
         print("You are ok, continue!")
     else: 
         raise ValueError("Fill in you matrix first!")
@@ -159,7 +165,7 @@ def roi_bbox(my_Mat):
     #check every element of myMat 
     for row in range(0,a):
         for col in range(0,b):
-            item = my_Mat[row,col]
+            item = my_mat[row,col]
             #if the element is 1, save its index(i,j)
             if item==1:
                 if row<a:
@@ -192,21 +198,23 @@ finish_time=time.time()
 alltime=finish_time-init_time
 print(result_coordinates)
 """
-
-
-def random_fill_sparse(myMat,K):  
+##Random filling of the matrix
+# fill random K positions with 'X'
+# @param my_mat: the input 2D matrix of type char, K: number of positions to fill  
+# @throws an exception (ValueError) on an bad type matrix, an exception (ValueError) on an empty matrix, an exception (ValueError) on negative or superior to matrix's size value of K
+def random_fill_sparse(my_mat,K):  
     #check if the input matrix is of type char
-    if str(myMat.dtype)[:2] != '|S' and str(myMat.dtype)[:2] != '<U':
-        print(myMat.dtype)
+    if str(my_mat.dtype)[:2] != '|S' and str(my_mat.dtype)[:2] != '<U':
+        print(my_mat.dtype)
         raise ValueError("Your matrix is not of type char!")
     #check if the input matrix is of certain size
-    if len(myMat) == 0:
+    if len(my_mat) == 0:
         raise ValueError("Your matrix is empty!")
     #check if K is not negative or bigger than matrix's size
-    if K < 0 or K > len(myMat) :
+    if K < 0 or K > len(my_mat) :
         raise ValueError("Cannot fill negative nmber of cells or superior of the matrix's size!")
     #the size of the array       
-    size_array=len(myMat) 
+    size_array=len(my_mat) 
     #init iteration 
     i = 0
     while i<K:
@@ -215,10 +223,10 @@ def random_fill_sparse(myMat,K):
         random_col = alea(size_array-1)
         #print(random_row,random_col)
         #fill the cell with coordinates random_row and random_col with "X" if it is empty
-        if myMat[random_row,random_col] != "X":
-            myMat[random_row,random_col]="X"
+        if my_mat[random_row,random_col] != "X":
+            my_mat[random_row,random_col]="X"
             i+=1
-    return myMat
+    return my_mat
     
 def alea(v):
     random = numpy.random.randint(0, v+1)

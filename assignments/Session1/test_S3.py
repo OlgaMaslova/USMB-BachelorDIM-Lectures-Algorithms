@@ -10,23 +10,42 @@ import pytest
 import S3_imgproc_tools as img
 import numpy as np
 
-def test_invert_colors_manual_checkArray():
+def test_invert_colors_manual_checkType():
     myImg = 'string'
     with pytest.raises (ValueError):
         img.invert_colors_manual(myImg)
         
-def test_invert_colors_manual_checkRGB():
+def test_invert_colors_manual_checkSize():
     myImg = np.zeros(2)
     with pytest.raises (ValueError):
         img.invert_colors_manual(myImg)
         
-def test_invert_colors_numpy_checkArray():
+def test_invert_colors_numpy_checkType():
     myImg = 'string'
     with pytest.raises (ValueError):
         img.invert_colors_numpy(myImg)
         
-def test_invert_colors_opencv_checkArray():
+def test_invert_colors_opencv_checkType():
     myImg = 'string'
     with pytest.raises (ValueError):
         img.invert_colors_opencv(myImg)
         
+def test_threshold_image_manual_checkType():
+    myImg = 'string'
+    with pytest.raises (ValueError):
+        img.threshold_image_manual(myImg)
+        
+def test_threshold_image_manual_checkSize():
+    myImg = np.zeros(2)
+    with pytest.raises (ValueError):
+        img.threshold_image_manual(myImg)
+        
+def test_threshold_image_numpy_checkType():
+    myImg = 'string'
+    with pytest.raises (ValueError):
+        img.threshold_image_numpy(myImg)
+        
+def test_threshold_image_opencv_checkType():
+    myImg = 'string'
+    with pytest.raises (ValueError):
+        img.threshold_image_opencv(myImg)
