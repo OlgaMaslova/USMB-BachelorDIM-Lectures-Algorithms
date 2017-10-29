@@ -19,13 +19,19 @@ connection = pika.BlockingConnection(params)  #connect to CloudAMQ
 channel = connection.channel()  # start a channel
 channel.queue_declare(queue='rpc_queue')  # Declare a queue
 
-result = channel.queue_declare(exclusive=True) #Client creates an anonymous exclusive callback queue
+#Client creates an anonymous exclusive callback queue
+result = channel.queue_declare(exclusive=True) 
 callback_queue = result.method.queue
 
-image_medium = cv2.imread('myimage_medium.jpg', 1) #import an image
-encoded_msg=msgpack.packb(image_medium, default=m.encode)
-#print("length of encoded matrix: ", len(encoded_msg))
+#import an image
+my_image = cv2.imread('myimage_medium.jpg', 0) 
+filter_types = {'invert':'invert image colors', 'threshold':'threshold an image'}
+my_filter = filter_types['threshold']
+message_proto = {'filter_type':my_filter, 'image':my_image}
+#encodes the image
+message = msgpack.packb(message_proto, default=m.encode)
 
+#unique correlation id
 corr_id = str(uuid.uuid4())
 
 channel.basic_publish(exchange='',
@@ -33,7 +39,7 @@ channel.basic_publish(exchange='',
                     properties=pika.BasicProperties(
                             reply_to = callback_queue,
                             correlation_id = corr_id,),
-                            body=encoded_msg)                       
+                            body=message)                       
                            
 response=None
 
@@ -45,7 +51,7 @@ def on_response(ch, method, props, body):
         cv2.imshow("Inverted", decoded_response)
         cv2.waitKey()
     else:
-        raise ValueError("Correlation_id does not match!") #throxs an exception
+        raise ValueError("Correlation_id does not match!") #throws an exception
 
 print('Starting to wait on the response queue')
 channel.basic_consume(on_response, no_ack=True,

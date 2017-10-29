@@ -15,7 +15,7 @@ image_bgr = cv2.imread('myimage_small.jpg',1)
 image_medium = cv2.imread('myimage_medium.jpg', 1)
 image_4K = cv2.imread('myimage_4K.jpg', 1)
 
-print("Gray levels image shape = "+str(img_gray.shape)) 
+#print("Gray levels image shape = "+str(img_gray.shape)) 
 
 #cv2.imshow("Gray levels image", img_gray)
 #cv2.waitKey()
@@ -133,7 +133,7 @@ img_inv = threshold_image_opencv(img_gray)
 
 cv2.imshow("Inverted", img_inv)
 cv2.waitKey()
-    """         
+"""            
    
   
     
