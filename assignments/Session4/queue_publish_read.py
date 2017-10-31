@@ -5,7 +5,9 @@ Created on Mon Oct 16 13:54:22 2017
 @author: maslovao
 """
 
-import argparse
+import argparse, pika, os
+
+#switch between publish and read modes
 parser = argparse.ArgumentParser()
 parser.add_argument("-read", action="store_true", help = "help me!")
 parser.add_argument("-publish", action="store_true")
@@ -16,3 +18,7 @@ if args.read:
 if args.publish:
     print ('publish turned on')
     execfile('simple_queue_publish.py')
+    
+    
+
+    

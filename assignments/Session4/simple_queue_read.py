@@ -5,7 +5,7 @@ Created on Mon Oct 16 13:50:21 2017
 @author: maslovao
 """
 
-import pika, os, argparse
+import pika, os, argparse, time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-concurrency', help='an integer for the accumulator', action = "store_true")
@@ -16,19 +16,23 @@ params = pika.URLParameters(url)
 params.socket_timeout = 5
 connection = pika.BlockingConnection(params)
 channel = connection.channel() # start a channel
-channel.queue_declare(queue='presentation')
-#channel.basic_qos(prefetch_count=1)
+# Declare a durable queue
+channel.queue_declare(queue='presentation', durable=True)
 countMsg = 0 
 
 def callback(ch, method, properties, body):
   global countMsg 
   countMsg = countMsg + 1
   print(" [x] Received %r" % body)
+  #make the client sleep for 5 sec
+  time.sleep(5)
   print("Total messages received", countMsg)
   if concurrency:
       print(" [x] Message processed, acknowledging (to delete message from the queue)")
+      #message acknowledgment
       ch.basic_ack(delivery_tag = method.delivery_tag)
-  
+
+channel.basic_qos(prefetch_count=1)  
 channel.basic_consume(callback,
                       queue='presentation',
                       no_ack=True)

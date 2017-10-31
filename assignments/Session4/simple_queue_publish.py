@@ -17,7 +17,8 @@ params = pika.URLParameters(url)
 params.socket_timeout = 5
 connection = pika.BlockingConnection(params) #connect to CloudAMQP
 channel = connection.channel() # start a channel
-channel.queue_declare(queue='presentation') # Declare a queue
+# Declare a durable queue
+channel.queue_declare(queue='presentation', durable=True)
 if concurrency:
     print("conc here!")
     channel.basic_publish(exchange='',
